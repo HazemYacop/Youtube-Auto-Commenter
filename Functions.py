@@ -27,11 +27,6 @@ from PySide2.QtCore import QParallelAnimationGroup, QPropertyAnimation, QEasingC
 
 class Package:
     @staticmethod
-    def help():
-        print("This will be available in the future")
-        # webbrowser.open('https://stackoverflow.com/questions/4302027/how-to-open-a-url-in-python')
-
-    @staticmethod
     def copy_email(program_path):  # changes the json file every time the user click on copy email
         try:
             with open(f'{program_path}\Email.txt', mode="r+", encoding="utf-8") as file:
@@ -168,6 +163,11 @@ class Package:
         except Exception as e:
             print(e)
             sheet.update_cell(col=3, row=start_from_row, value="Couldn't Comment on video")
+
+    @staticmethod
+    def help():
+        print("This will be available in the future")
+        # webbrowser.open('https://stackoverflow.com/questions/4302027/how-to-open-a-url-in-python')
 
 
 class UserInterface(QMainWindow, design):
