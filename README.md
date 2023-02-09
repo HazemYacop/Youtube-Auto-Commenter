@@ -1,4 +1,4 @@
-# Youtube-Auto-Commenter
+# Youtube-Auto-Commenter 0.24
 A software that auto comments on youtube videos that the user specifies.
 
 
