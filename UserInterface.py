@@ -21,7 +21,7 @@ class Ui_MainWindow(object):
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.centralwidget.setStyleSheet(u"QWidget#centralwidget{\n"
-"background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(132, 250, 176, 255), stop:1 rgba(143, 211, 244, 255));\n"
+"background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(3, 0, 30, 255), stop:0.255682 rgba(115, 3, 192, 255), stop:0.738636 rgba(236, 56, 188, 255), stop:1 rgba(253, 239, 249, 255));\n"
 "}\n"
 "")
         self.gridLayout = QGridLayout(self.centralwidget)

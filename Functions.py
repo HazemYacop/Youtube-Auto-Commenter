@@ -30,13 +30,14 @@ class Package:
     def help():
         print("This will be available in the future")
         # webbrowser.open('https://stackoverflow.com/questions/4302027/how-to-open-a-url-in-python')
+
     @staticmethod
-    def copy_email(program_path): # To change the json file every time the user click on copy email
+    def copy_email(program_path):  # changes the json file every time the user click on copy email
         try:
             with open(f'{program_path}\Email.txt', mode="r+", encoding="utf-8") as file:
                 email = file.read()
                 if email == "Email1":
-                    file.truncate(0)
+                    file.truncate(0)  # Format file
                     file.seek(0)
                     file.write("Email2")
                     pc.copy(Creds.email_1)
@@ -110,9 +111,9 @@ class Package:
     def control_chrome(profile):
         chrome_path = f"{os.path.expanduser('~')}\AppData\Local\Google\Chrome"
         options = uc.ChromeOptions()
-        options.user_data_dir = f"{chrome_path}\{profile}"
-        chrome = uc.Chrome(options=options)
-        chrome.get('https://accounts.google.com/v3/signin/identifier?dsh=S671521857%3A1675831651951465&continue=https%3A%2F%2Fmyaccount.google.com%3Futm_source%3Daccount-marketing-page%26utm_medium%3Dgo-to-account-button&service=accountsettings&flowName=GlifWebSignIn&flowEntry=ServiceLogin&ifkv=AWnogHfoAVlNGBvVIsAX-Ta_I5K6P5WPiU-RdwmsfSHaVVVDhE46RpCljdYHfzJRqfzjGjCht6y_sw')
+        options.user_data_dir = f"{chrome_path}\{profile}"  # Open preferred chrome profile
+        chrome = uc.Chrome(options=options, version_main=109)  # Fixed Chrome version to avoid updates errors
+        chrome.get('https://youtube.com')  # To Sign to account
         return chrome
 
     @staticmethod

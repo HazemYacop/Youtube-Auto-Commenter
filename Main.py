@@ -30,7 +30,7 @@ class Main:
         Package.load_txt(self.UserInterface.StartFromRow, "StartFromRow")
         Package.load_txt(self.UserInterface.ChromeProfile, "ChromeProfile")
 
-        # Button(s) Fun(s)
+        # Button(s) Function(s)
         self.UserInterface.StartButton.clicked.connect(lambda: [self.UserInterface.stackedWidget.setCurrentIndex(3), self.UserInterface.transition([self.UserInterface.stackedWidget]), self.required_data(), threading.Thread(target=self.main).start(), self.UserInterface.BackButton.setDisabled(True)])
         self.UserInterface.NextToChromeProfilesPageButton.clicked.connect(lambda: [self.UserInterface.stackedWidget.setCurrentIndex(1), self.UserInterface.transition([self.UserInterface.stackedWidget])])
         self.UserInterface.BackToMainPageButton.clicked.connect(lambda: [self.UserInterface.stackedWidget.setCurrentIndex(0), self.UserInterface.transition([self.UserInterface.stackedWidget])])
@@ -41,32 +41,33 @@ class Main:
 
     def main(self):
         try:
-            # Save Information
+            # Save Information in TXT files
             Package.save_txt("Sheet", self.sheet)
             Package.save_txt("Worksheet", self.worksheet)
             Package.save_txt("StartFromRow", self.start_from_row)
             Package.save_txt("ChromeProfile", self.chrome_profile)
 
             # Re-translating UI
+            videos_done = 0
             self.UserInterface.SheetStatusLabel.setText(f"Sheet : {self.sheet}")
             self.UserInterface.WorksheetStatusLabel.setText(f"Worksheet : {self.worksheet}")
             self.UserInterface.StartFromRowStatusLabel.setText(f"Start From Row : {self.start_from_row}")
-            videos_done = 0
             self.UserInterface.VideosFinishedStatusLabel.setText(f"Videos Finished : {videos_done}")
 
-            # Chrome open Function
+            # Opening chrome
             chrome = Package.control_chrome(self.chrome_profile)
 
             # Defining videos list
             videos = self.videos[self.start_from_row - 1:]
 
             for video in videos:
-                comment = self.comments[random.randint(0, len(self.comments) - 1)]
-                chrome.get(video)
-                sleep(5)
-                Package.comment(chrome, comment, self.sheet_control, self.start_from_row)
+                comment = self.comments[random.randint(0, len(self.comments) - 1)]  # Random comment
+                chrome.get(video)  # Open youtube link
+                sleep(10)
+                Package.comment(chrome, comment, self.sheet_control, self.start_from_row)  # Comment on video
+                sleep(random.randint(1, 600))  # Sleeps for a random time between 1 second and 10 minutes.
 
-                # Adding 1 to Variables
+                # Re-defining variables Variables
                 videos_done += 1
                 self.start_from_row += 1
 
@@ -92,7 +93,7 @@ class Main:
         self.start_from_row = int(self.UserInterface.StartFromRow.text())
         self.chrome_profile = self.UserInterface.ChromeProfile.text()
 
-        with open(f'{self.program_path}\Email.txt', 'r+', encoding="utf-8") as file:
+        with open(f'{self.program_path}\Email.txt', 'r+', encoding="utf-8") as file:  # Choose randomly between the json files which will be used to get information from Google spreadsheet
             if file.read() == "Email1":
                 file.close()
                 self.sheet_control = Package.access_google_spreadsheet(self.sheet, self.worksheet, "Creds1")
@@ -109,7 +110,7 @@ class Main:
                 self.sheet_control = Package.access_google_spreadsheet(self.sheet, self.worksheet, "Creds4")
 
         self.videos = self.sheet_control.col_values(1)
-        self.comments = list(filter(lambda x: x != "", self.sheet_control.col_values(2)))
+        self.comments = list(filter(lambda x: x != "", self.sheet_control.col_values(2)))  # Get filtered comments
 
 
 if __name__ == '__main__':
